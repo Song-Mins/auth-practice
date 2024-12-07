@@ -36,7 +36,19 @@ public class SecurityConfig {
 		http
 			.csrf((auth) -> auth.disable());
 
+		// 동시 세션 제어
+		http
+			.sessionManagement((auth) -> auth
+//				.invalidSessionUrl("/invalid") // 세션 유요하지 않을 때 이동할 페이지
+				.maximumSessions(1)
+//				.expiredUrl("/expired") // 세션이 만료된 경우 이동할 페이지
+				.maxSessionsPreventsLogin(true)); // false : 이전 사용자 세션 만료 / true : 현재 사용자 인증 실패
+		// invalidSessionUrl 과 expiredUrl 둘 다 설정된 경우 invalidSessionUrl 이 우선순위
+
+
 		return http.build();
 	}
+
+
 
 }
