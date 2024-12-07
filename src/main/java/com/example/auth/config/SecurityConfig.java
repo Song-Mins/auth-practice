@@ -45,6 +45,11 @@ public class SecurityConfig {
 				.maxSessionsPreventsLogin(true)); // false : 이전 사용자 세션 만료 / true : 현재 사용자 인증 실패
 		// invalidSessionUrl 과 expiredUrl 둘 다 설정된 경우 invalidSessionUrl 이 우선순위
 
+		http
+			.sessionManagement((auth) -> auth
+//				.sessionFixation().none() // 로그인 시 세션 정보 변경 안함
+//				.sessionFixation().nnewSessio() // 로그인 시 세션 새로 생성
+				.sessionFixation().changeSessionId()); // 로그인 시 동일한 세션에 대한 id 변경
 
 		return http.build();
 	}
