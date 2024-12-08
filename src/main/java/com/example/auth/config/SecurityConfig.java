@@ -33,23 +33,30 @@ public class SecurityConfig {
 				.permitAll()
 			);
 
-		http
-			.csrf((auth) -> auth.disable());
-
 		// 동시 세션 제어
+		// invalidSessionUrl 과 expiredUrl 둘 다 설정된 경우 invalidSessionUrl 이 우선순위
 		http
 			.sessionManagement((auth) -> auth
 //				.invalidSessionUrl("/invalid") // 세션 유요하지 않을 때 이동할 페이지
 				.maximumSessions(1)
 //				.expiredUrl("/expired") // 세션이 만료된 경우 이동할 페이지
 				.maxSessionsPreventsLogin(true)); // false : 이전 사용자 세션 만료 / true : 현재 사용자 인증 실패
-		// invalidSessionUrl 과 expiredUrl 둘 다 설정된 경우 invalidSessionUrl 이 우선순위
 
+		// 세션 고정 보호
 		http
 			.sessionManagement((auth) -> auth
 //				.sessionFixation().none() // 로그인 시 세션 정보 변경 안함
 //				.sessionFixation().nnewSessio() // 로그인 시 세션 새로 생성
 				.sessionFixation().changeSessionId()); // 로그인 시 동일한 세션에 대한 id 변경
+
+		// 로그아웃 요청에는 csrf 검사 X
+		http
+			.csrf(csrf -> csrf
+				.ignoringRequestMatchers("/logout")
+			)
+			.logout(logout -> logout
+				.logoutSuccessUrl("/")
+			);
 
 		return http.build();
 	}
