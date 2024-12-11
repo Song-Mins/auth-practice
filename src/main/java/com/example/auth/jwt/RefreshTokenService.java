@@ -20,7 +20,7 @@ public class RefreshTokenService {
 
 		return refreshTokenRepository.findByAccessToken(accessToken)
 			.orElseThrow(
-				() -> new RuntimeException("해당 액세스 토큰의 리프레시 토큰 없음")
+				() -> new RuntimeException("해당 액세스 토큰의 리프레시 토큰 없음 ")
 			);
 	}
 
