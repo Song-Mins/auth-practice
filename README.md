@@ -15,10 +15,11 @@
 
 ### security-jwt-oauth2 
 - Spring Security 와 JWT, 그리고 OAuth2 를 활용한 인증 및 인가 구현   
-
 </br>
 
 ## ✏️ 브랜치 설명
+각 브랜치별 인증/인가 방벙의 특징에 대한 간단한 설명이다.  
+실제 구현방법에 대한 내용은 각 브랜치의 리드미 파일에 작성되어 있다.
 ### security-session
   - Spring Security 의 세션 기반 인증 및 인가를 구현
     
